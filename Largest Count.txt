@@ -1,0 +1,19 @@
+## Customer with Largest Number of Orders
+
+/*
+Limit solution
+*/
+select
+customer_number
+from orders 
+group by customer_number
+order by count(order_number) desc
+limit 1
+
+/*
+count solution
+*/
+SELECT customer_number FROM orders
+GROUP BY customer_number
+having count(distinct order_number) IN
+(SELECT MAX(countn) FROM (select count(distinct order_number) as countn FROM orders GROUP BY customer_number) sub)
